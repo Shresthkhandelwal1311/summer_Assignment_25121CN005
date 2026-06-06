@@ -1,19 +1,19 @@
-//Write a program to Convert decimal to binary. 
+//Write a program to Convert binary to decimal. 
 #include<iostream>
 using namespace std;
 int main(){
     int n,r,ans=0,contri=1;
-    cout<<"enter the decimal no.:";
+    cout<<"enter the binary no.:";
     cin>>n;
     while(n>0){
-        r=n%2;
+        r=n%10;
         if(r==1){
             ans+=contri;
         }
-        n=n/2;
-        contri*=10;
+        n=n/10;
+        contri*=2;
 
     }
-    cout<<ans;
+    cout<<"decimal conversion is:"<<ans;
     return 0;
 }
