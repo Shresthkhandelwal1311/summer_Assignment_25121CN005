@@ -1,8 +1,11 @@
-//Write a program to Write function to find sum of two numbers. 
+//Write a program to Write function to find maximum.
 #include<iostream>
 using namespace std;
-int sum(int a,int b){
-    return a+b;
+int max(int a,int b){
+    if(a>b)
+      return a;
+    else
+      return b;
 }
 int main(){
     int a,b;
@@ -10,5 +13,5 @@ int main(){
     cin>>a;
     cout<<"enter second no.:";
     cin>>b;
-    cout<<sum(a,b);
+    cout<<max(a,b);
 }
