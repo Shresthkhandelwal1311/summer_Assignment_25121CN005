@@ -1,11 +1,11 @@
-//Write a program to Bubble sort. 
+//Write a program to Selection sort. 
 #include<iostream>
 using namespace std;
 int main(){
     int n;
     cout<<"enter no. of elements:";
     cin>>n;
-    int a[n],i,j,t;
+    int a[n],i,j,t,minIdx;
     cout<<"enter elements:";
     for(i=0;i<n;i++){
         cin>>a[i];
@@ -15,12 +15,15 @@ int main(){
        cout<<a[i]<<" ";
     cout<<endl;
     for(i=0;i<n-1;i++){
-        for(j=0;j<n-i-1;j++){
-            if(a[j]>a[j+1]){
-                t=a[j];
-                a[j]=a[j+1];
-                a[j+1]=t;
-            }
+        minIdx=i;
+        for(j=i+1;j<n;j++){
+            if(a[j]<a[minIdx])
+                minIdx=j;
+        }
+        if(minIdx!=i){
+            t=a[i];
+            a[i]=a[minIdx];
+            a[minIdx]=t;
         }
     }
     cout<<"Sorted array is:";
