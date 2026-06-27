@@ -1,126 +1,132 @@
-//Write a program to Create student record management system.
+//Write a program to Create employee management system.
 #include <iostream>
 #include <string>
 using namespace std;
 
-// ── Student data ──────────────────────────────────
-struct Student{
-    int id;
+// ── Employee data ──────────────────────────────────
+struct Employee{
+    int    id;
     string name;
-    int age;
-    float marks;
+    string department;
+    float  salary;
 };
 
-// ── Global storage (up to 100 students) ───────────
-Student students[100];
+// ── Global storage (up to 100 employees) ───────────
+Employee employees[100];
 int count = 0;
 
 // ─────────────────────────────────────────────────
-// 1. Add a new student
+// 1. Add a new employee
 // ─────────────────────────────────────────────────
-void addStudent(){
+void addEmployee(){
     if (count >= 100){
         cout << "Storage full!\n";
         return;
     }
 
-    Student s;
-    s.id = count + 1;            // auto ID
+    Employee e;
+    e.id = count + 1;            // auto ID
 
-    cout << "\nEnter Name  : "; 
+    cout << "\nEnter Name     : ";
     cin.ignore(); 
-    getline(cin, s.name);
-    cout << "Enter Age   : "; cin >> s.age;
-    cout << "Enter Marks : "; cin >> s.marks;
+    getline(cin, e.name);
+    cout << "Enter Department : ";                 
+    getline(cin, e.department);
+    cout << "Enter Salary     : "; 
+    cin >> e.salary;
 
-    students[count] = s;
+    employees[count] = e;
     count++;
 
-    cout << "\nStudent added! (ID = " << s.id << ")\n";
+    cout << "\nEmployee added! (ID = " << e.id << ")\n";
 }
 
 // ─────────────────────────────────────────────────
-// 2. Show all students
+// 2. Show all employees
 // ─────────────────────────────────────────────────
 void showAll(){
-    if (count == 0){
-        cout << "\nNo students found.\n";
+    if (count == 0) {
+        cout << "\nNo employees found.\n";
         return;
     }
 
     cout << "\n------------------------------------------\n";
-    cout << "ID\tName\t\tAge\tMarks\n";
+    cout << "ID\tName\t\tDepartment\tSalary\n";
     cout << "------------------------------------------\n";
-    for (int i = 0; i < count; i++){
-        cout << students[i].id   << "\t"
-             << students[i].name << "\t\t"
-             << students[i].age  << "\t"
-             << students[i].marks << "\n";
+
+    for (int i = 0; i < count; i++) {
+        cout << employees[i].id         << "\t"
+             << employees[i].name       << "\t\t"
+             << employees[i].department << "\t\t"
+             << employees[i].salary     << "\n";
     }
 
     cout << "------------------------------------------\n";
-    cout << "Total students: " << count << "\n";
+    cout << "Total employees: " << count << "\n";
 }
 
 // ─────────────────────────────────────────────────
 // 3. Search by ID
 // ─────────────────────────────────────────────────
-void searchStudent(){
+void searchEmployee(){
     int id;
     cout << "\nEnter ID to search: "; cin >> id;
+
     for (int i = 0; i < count; i++){
-        if (students[i].id == id) {
+        if (employees[i].id == id){
             cout << "\nFound!\n";
-            cout << "ID    : " << students[i].id    << "\n";
-            cout << "Name  : " << students[i].name  << "\n";
-            cout << "Age   : " << students[i].age   << "\n";
-            cout << "Marks : " << students[i].marks << "\n";
+            cout << "ID         : " << employees[i].id         << "\n";
+            cout << "Name       : " << employees[i].name       << "\n";
+            cout << "Department : " << employees[i].department << "\n";
+            cout << "Salary     : " << employees[i].salary     << "\n";
             return;
         }
     }
-    cout << "Student with ID " << id << " not found.\n";
+    cout << "Employee with ID " << id << " not found.\n";
 }
 
 // ─────────────────────────────────────────────────
-// 4. Update student
+// 4. Update employee
 // ─────────────────────────────────────────────────
-void updateStudent(){
+void updateEmployee(){
     int id;
     cout << "\nEnter ID to update: "; cin >> id;
+
     for (int i = 0; i < count; i++){
-        if (students[i].id == id){
-            cout << "Enter new Name  : "; 
+        if (employees[i].id == id){
+            cout << "Enter new Name       : "; 
             cin.ignore(); 
-            getline(cin, students[i].name);
-            cout << "Enter new Age   : "; 
-            cin >> students[i].age;
-            cout << "Enter new Marks : "; 
-            cin >> students[i].marks;
+            getline(cin, employees[i].name);
+            cout << "Enter new Department : ";               
+            getline(cin, employees[i].department);
+            cout << "Enter new Salary     : "; 
+            cin >> employees[i].salary;
             cout << "Record updated!\n";
             return;
         }
     }
-    cout << "Student not found.\n";
+    cout << "Employee not found.\n";
 }
 
 // ─────────────────────────────────────────────────
-// 5. Delete student
+// 5. Delete employee
 // ─────────────────────────────────────────────────
-void deleteStudent(){
+void deleteEmployee(){
     int id;
     cout << "\nEnter ID to delete: "; cin >> id;
+
     for (int i = 0; i < count; i++){
-        if (students[i].id == id){
+        if (employees[i].id == id) {
             // Shift remaining records left
             for (int j = i; j < count - 1; j++){
-                students[j] = students[j + 1];
+                employees[j] = employees[j + 1];
             }
             count--;
-            cout << "Student deleted!\n";
+            cout << "Employee deleted!\n";
             return;
         }
     }
-    cout << "Student not found.\n";
+    cout << "Employee not found.\n";
 }
 
 // ─────────────────────────────────────────────────
@@ -130,25 +136,25 @@ int main(){
     int choice;
 
     do{
-        cout << "\n============================\n";
-        cout << " STUDENT MANAGEMENT SYSTEM\n";
-        cout << "============================\n";
-        cout << "1. Add Student\n";
-        cout << "2. Show All Students\n";
-        cout << "3. Search Student\n";
-        cout << "4. Update Student\n";
-        cout << "5. Delete Student\n";
+        cout << "\n==============================\n";
+        cout << " EMPLOYEE MANAGEMENT SYSTEM\n";
+        cout << "==============================\n";
+        cout << "1. Add Employee\n";
+        cout << "2. Show All Employees\n";
+        cout << "3. Search Employee\n";
+        cout << "4. Update Employee\n";
+        cout << "5. Delete Employee\n";
         cout << "0. Exit\n";
-        cout << "----------------------------\n";
+        cout << "------------------------------\n";
         cout << "Enter choice: ";
         cin >> choice;
 
         switch (choice){
-            case 1: addStudent();    break;
-            case 2: showAll();       break;
-            case 3: searchStudent(); break;
-            case 4: updateStudent(); break;
-            case 5: deleteStudent(); break;
+            case 1: addEmployee();    break;
+            case 2: showAll();        break;
+            case 3: searchEmployee(); break;
+            case 4: updateEmployee(); break;
+            case 5: deleteEmployee(); break;
             case 0: cout << "Goodbye!\n"; break;
             default: cout << "Invalid choice!\n";
         }
